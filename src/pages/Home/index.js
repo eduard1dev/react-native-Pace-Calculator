@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
+import { FontAwesome5 } from '@expo/vector-icons'
+
 import React , { useState } from 'react'
 import { Alert, Text } from 'react-native'
-import { set } from 'react-native-reanimated'
-import { useDispatch, useSelector } from 'react-redux'
+
+import { useDispatch} from 'react-redux'
 import { save } from '../../store/pacesHist/pacesHist.actions'
 
 import { 
@@ -18,7 +20,6 @@ import {
     TextPaceLow,
     TextUpper,
 } from './styles'
-
 
 export default function Home({navigation}){
     const [hora, setHora] = useState()
@@ -36,9 +37,8 @@ export default function Home({navigation}){
     const date = new Date()
     const today = `${(date.getDate().toString()).length == 1 ?'0'+ date.getDate().toString():date.getDate()}/0${date.getMonth() + 1}/${date.getYear() + 1900}`
 
-
     const dataPace = {
-        key: pace,
+        key: (pace).toString(),
         pace: pace,
         date: today,
     }
@@ -48,7 +48,6 @@ export default function Home({navigation}){
         if (!isNaN(dataPace.pace)){
             dispatch(save(dataPace))
             Alert.alert('Pronto!','Seu pace foi salvo.')
-            setHora('')
         }else{
             Alert.alert('Ops!','Digite todos os valores.')
         }
@@ -60,9 +59,9 @@ export default function Home({navigation}){
             <TextUpper>Calcule seu pace</TextUpper>
             <InputContainerTime placeholder='distância'>
                 <InputTime onChangeText={(value) => {setHora(parseFloat(value))} } placeholder='hora' keyboardType='numeric'/>
-                <Text style={{color:'#000', fontSize:35, fontWeight:'bold'}}>:</Text>
+                <Text style={{color:'#000', fontSize:30}}>:</Text>
                 <InputTime onChangeText={(value) => setMin(parseFloat(value)) } placeholder='min' keyboardType='numeric'/>
-                <Text style={{color:'#000', fontSize:35, fontWeight:'bold'}}>:</Text>
+                <Text style={{color:'#000', fontSize:30}}>:</Text>
                 <InputTime onChangeText={(value) => setSeg(parseFloat(value)) } placeholder='seg' keyboardType='numeric'/>
             </InputContainerTime>
             <InputDist onChangeText={(value) => setDist(parseFloat(value))} placeholder='distância em metros' keyboardType='numeric'></InputDist>
@@ -73,7 +72,9 @@ export default function Home({navigation}){
             <SaveButton onPress={() => savePace()} >
                 <TextSave>Salvar</TextSave>
             </SaveButton>
-            <SwitchPageButton onPress={() => navigation.navigate('Stories')} />
+            <SwitchPageButton onPress={() => navigation.navigate('Stories')}>
+                <FontAwesome5 name='history' size={30} color='white' />
+            </SwitchPageButton>
         </Container>
     )
 }

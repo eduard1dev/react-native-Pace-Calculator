@@ -1,5 +1,9 @@
 const initialState = {
-    paces: []
+    paces: [{
+        key: '6.43',
+        pace: 6.43,
+        date: '03/04/2021',
+    }]
 }
 
 export default (state = initialState, { type, payload }) => {
