@@ -53,6 +53,8 @@ export const SwitchPageButton = styled.TouchableOpacity`
     background-color: #000;
     border-radius: 25px;
     border-top-right-radius: 5px;
+    align-items: center;
+    justify-content: center;
 `
 export const PaceContainer = styled.View`
     width: 280px;
@@ -72,11 +74,15 @@ export const TextPaceLow = styled(TextPace)`
 `
 export const TextUpper = styled.Text`
     position: absolute;
-    top: 80px;
+    top: 0px;
     font-weight: bold;
-    font-size: 25px;
-    color: #000;
-    padding: 5px;
-    border: 2px;
+    font-size: 27px;
+    width: 100%;
+    height: 60px;
+    color: #FFF;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #000;
     text-align: center;
+    padding-top: 20px;
 `
