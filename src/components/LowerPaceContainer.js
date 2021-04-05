@@ -48,14 +48,14 @@ export default function LowerPaceContainer({item}){
         <>
             <PaceContainer>
                 <TextDate>{item.date}</TextDate>
-                <TextDate style={{top: 30, fontSize: 20}} >seu menor pace</TextDate>
+                <TextDate style={{top: 30, fontSize: 20, backgroundColor: '#FFF', borderRadius: 5, color: '#000', paddingHorizontal: 5}} >seu menor pace</TextDate>
                 <View style={{alignItems: 'flex-end'}}>
                     <TextPace>{item.pace}</TextPace>
                     <TextLower>min/km</TextLower>
                 </View>
                 <View style={{backgroundColor: '#FFF', width: 2, height: 50, marginHorizontal: 8}} />
                 <TouchableOpacity onPress={() => delPace(item)} >
-                    <AntDesign name='delete' size={30} color='white' />
+                    <AntDesign name='delete' size={25} color='white' />
                 </TouchableOpacity>
             </PaceContainer>
             <View style={{backgroundColor: '#000', width: 220, height: 2, marginBottom: 30}} />

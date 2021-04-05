@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar'
-import { FontAwesome5 } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 
 import React , { useState } from 'react'
-import { Alert, Text } from 'react-native'
+import { Alert, Text, StyleSheet } from 'react-native'
 
 import { useDispatch} from 'react-redux'
 import { save } from '../../store/pacesHist/pacesHist.actions'
@@ -56,25 +56,32 @@ export default function Home({navigation}){
     return(
         <Container>
             <StatusBar hidden={true} />
-            <TextUpper>Calcule seu pace</TextUpper>
+            <TextUpper style={styles.shadow}>CALCULE SEU PACE</TextUpper>
             <InputContainerTime placeholder='distância'>
                 <InputTime onChangeText={(value) => {setHora(parseFloat(value))} } placeholder='hora' keyboardType='numeric'/>
-                <Text style={{color:'#000', fontSize:30}}>:</Text>
+                <Text style={{color:'#FFF', fontSize:30}}>:</Text>
                 <InputTime onChangeText={(value) => setMin(parseFloat(value)) } placeholder='min' keyboardType='numeric'/>
-                <Text style={{color:'#000', fontSize:30}}>:</Text>
+                <Text style={{color:'#FFF', fontSize:30}}>:</Text>
                 <InputTime onChangeText={(value) => setSeg(parseFloat(value)) } placeholder='seg' keyboardType='numeric'/>
             </InputContainerTime>
             <InputDist onChangeText={(value) => setDist(parseFloat(value))} placeholder='distância em metros' keyboardType='numeric'></InputDist>
-            
-            <PaceContainer>
-                <TextPace>{isNaN(pace)?'...':pace}</TextPace><TextPaceLow>km/min</TextPaceLow>
+            <PaceContainer style={styles.shadow}>
+                <TextPace>{isNaN(pace)?'...':pace}</TextPace><TextPaceLow>min/km</TextPaceLow>
             </PaceContainer>
-            <SaveButton onPress={() => savePace()} >
+            <SaveButton style={styles.shadow} onPress={() => savePace()} >
                 <TextSave>Salvar</TextSave>
             </SaveButton>
-            <SwitchPageButton onPress={() => navigation.navigate('Stories')}>
-                <FontAwesome5 name='history' size={30} color='white' />
+            <SwitchPageButton style={styles.shadow} onPress={() => navigation.navigate('Stories')}>
+                <MaterialIcons name='history' size={38} color='white' />
             </SwitchPageButton>
         </Container>
     )
 }
+
+
+
+const styles = StyleSheet.create({
+    shadow:{
+        elevation: 7,
+    }
+})

@@ -1,8 +1,8 @@
 import React from 'react'
-import {View, Text, Button} from 'react-native'
 import { Provider } from 'react-redux'
 
-import store from './src/store/store'
+import { store, persistor} from './src/store/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import Routes from './src/router'
 
@@ -11,7 +11,9 @@ export default function App(){
 
   return(
     <Provider store={store}>
-      <Routes/>
+      <PersistGate persistor={persistor} loading={null}>
+        <Routes/>
+      </PersistGate>
     </Provider>
   )
 }

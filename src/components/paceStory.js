@@ -53,7 +53,7 @@ export default function paceStory({item}){
             </View>
             <View style={{backgroundColor: '#FFF', width: 2, height: 50, marginHorizontal: 8}} />
             <TouchableOpacity onPress={() => delPace(item)} >
-                <AntDesign name='delete' size={30} color='white' />
+                <AntDesign name='delete' size={25} color='white' />
             </TouchableOpacity>
         </PaceContainer>
     )

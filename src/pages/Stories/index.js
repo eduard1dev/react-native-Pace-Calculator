@@ -1,10 +1,10 @@
-import React , {useState, useEffect} from 'react'
-import {View, Text, FlatList} from 'react-native'
+import React , {useState, useEffect, useCallback} from 'react'
+import {Text, FlatList, StyleSheet} from 'react-native'
 
 import PaceStory from '../../components/paceStory'
 import LowerPaceContainer from '../../components/LowerPaceContainer'
 
-import { FontAwesome5 } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 
 import { useSelector } from 'react-redux'
 
@@ -39,11 +39,11 @@ export default function Stories({navigation}){
 
     return(
         <Container>
-            <TextUpper>Histórico</TextUpper>
+            <TextUpper style={styles.shadow}>HISTÓRICO</TextUpper>
             {
                 lowerPace && lowerPace.pace != Infinity
                 ?<LowerPaceContainer item={lowerPace}/>
-                :<Text style={{fontSize:25}}>Salve algum pace!</Text>
+                :<Text style={{fontSize:25, color: '#FFF'}}>Salve algum pace!</Text>
             }
             <PacesContainer> 
                 <FlatList
@@ -53,8 +53,14 @@ export default function Stories({navigation}){
                 />
             </PacesContainer>
             <SwitchPageButton onPress={() => navigation.navigate('Home')}>
-                <FontAwesome5 name='calculator' size={25} color='white' />
+                <Ionicons name='calculator' size={32} color='white' />
             </SwitchPageButton>
         </Container>
     )
 }
+
+const styles = StyleSheet.create({
+    shadow:{
+        elevation: 7,
+    }
+})

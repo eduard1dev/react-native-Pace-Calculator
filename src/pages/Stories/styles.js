@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.ImageBackground`
     flex: 1;
-    background-color: #FFF;
+    background-color: #333333;
     align-items: center;
     justify-content: center;
 `
@@ -20,19 +20,19 @@ export const SwitchPageButton = styled.TouchableOpacity`
 `
 export const PacesContainer = styled.View`
     height: 70%;
-    width: 320px;
+    width: 340px;
 `
 export const TextUpper = styled.Text`
     position: absolute;
-    top: 0px;
+    top: -40px;
     font-weight: bold;
-    font-size: 27px;
-    width: 100%;
-    height: 60px;
-    color: #FFF;
-    border-bottom-right-radius: 50px;
-    border-bottom-left-radius: 50px;
-    background-color: #000;
+    font-size: 28px;
+    width: 90%;
+    height: 100px;
+    color: #cccccc;
+    border-bottom-right-radius: 80px;
+    border-bottom-left-radius: 80px;
+    background-color: #0d0d0d;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 50px;
 `
