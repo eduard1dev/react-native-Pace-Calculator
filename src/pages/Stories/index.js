@@ -48,8 +48,8 @@ export default function Stories({navigation}){
             <PacesContainer> 
                 <FlatList
                     data={paces}
-                    renderItem={({item}) => <PaceStory item={item} />}
-                    keyExtractor={item => item.key}
+                    renderItem={({item}) => <PaceStory item={item}/>}
+                    keyExtractor={(item) => item.key}
                 />
             </PacesContainer>
             <SwitchPageButton onPress={() => navigation.navigate('Home')}>

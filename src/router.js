@@ -1,4 +1,5 @@
 import React from 'react'
+import {View} from 'react-native'
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -9,12 +10,14 @@ import Stories from './pages/Stories'
 const Stack = createStackNavigator()
 
 export default function Routes(){
+
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name='Home' component={Home} options={{headerShown:false}}/>
-                <Stack.Screen name='Stories' component={Stories} options={{headerShown:false}}/>
+            <Stack.Navigator screenOptions={{headerShown:false, animationEnabled:false}}>
+                <Stack.Screen name='Home' component={Home}/>
+                <Stack.Screen name='Stories' component={Stories}/>
             </Stack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer> 
     )
 }
+

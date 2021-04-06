@@ -29,7 +29,7 @@ export default function Home({navigation}){
 
     const dispatch = useDispatch()
 
-    // minTotal = transformação do tempo para minutos
+    // minTotal = transformação do tempo para minutos.
     const minTotal = (hora*60 + min + seg/60)
     const pace = ( minTotal / (dist/1000)).toFixed(2)
 
@@ -37,8 +37,13 @@ export default function Home({navigation}){
     const date = new Date()
     const today = `${(date.getDate().toString()).length == 1 ?'0'+ date.getDate().toString():date.getDate()}/0${date.getMonth() + 1}/${date.getYear() + 1900}`
 
+    // gerando key aleatória para o objeto.
+    const getKey = () => (today + date.getMilliseconds() + date.getMinutes()).toString()
+    const [key, setKey] = useState(getKey)
+
+    // Objeto do pace.
     const dataPace = {
-        key: (pace).toString(),
+        key: key,
         pace: pace,
         date: today,
     }
@@ -47,6 +52,7 @@ export default function Home({navigation}){
     function savePace(){
         if (!isNaN(dataPace.pace)){
             dispatch(save(dataPace))
+            setKey(getKey)
             Alert.alert('Pronto!','Seu pace foi salvo.')
         }else{
             Alert.alert('Ops!','Digite todos os valores.')
