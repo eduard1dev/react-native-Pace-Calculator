@@ -12,6 +12,6 @@ Espera-se que esse projeto sirva como auxílio para outros corredores.
 
 # Screenshots:
 
-<div align='center'>
-    <img src='/demo/screenshots.png'/>
+<div align="center">
+    <img src="/demo/screenshots .png">
 </div>
