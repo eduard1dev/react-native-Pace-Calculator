@@ -1,7 +1,7 @@
 # Sobre o projeto:
-Esse aplicativo é um projeto pessoal meu, que partiu da necessidade de medir o desempenho nos treinos de corrida de rua, através do calculo do Pace(ritmo médio de corrida em min/km). 
+Esse aplicativo é um projeto pessoal meu, que partiu da necessidade de medir o desempenho nos treinos de corrida de rua, através do cálculo do Pace(ritmo médio de corrida em min/km). 
 
-Espera-se que esse projeto sirva como auxilio para outros corredores.
+Espera-se que esse projeto sirva como auxílio para outros corredores.
 
 # Tecnologias usadas no projeto:
 
