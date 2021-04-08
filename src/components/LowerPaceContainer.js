@@ -14,6 +14,7 @@ const PaceContainer = styled.View`
     flex-direction: row;
     height: 70px;
     width: 320px;
+    margin-top: 75px;
     margin-bottom: 10px;
     background-color: #000;
     align-self: center;

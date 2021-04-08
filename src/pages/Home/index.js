@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { MaterialIcons } from '@expo/vector-icons'
 
 import React , { useState } from 'react'
-import { Alert, Text, StyleSheet } from 'react-native'
+import { Alert, Text, StyleSheet, Modal, View, TouchableOpacity} from 'react-native'
 
 import { useDispatch} from 'react-redux'
 import { save } from '../../store/pacesHist/pacesHist.actions'
@@ -20,6 +20,8 @@ import {
     TextPaceLow,
     TextUpper,
 } from './styles'
+
+import Help from '../../components/Help'
 
 export default function Home({navigation}){
     const [hora, setHora] = useState()
@@ -59,8 +61,14 @@ export default function Home({navigation}){
         }
     }
 
+    //estado do modal para mostrar a janela de Ajuda.
+    const [showHelp, setHelp] = useState(false)
+
     return(
         <Container>
+            <Modal onRequestClose={() => setHelp(false)} visible={showHelp} transparent={true} animationType={'slide'}>
+                <Help/>  
+            </Modal>
             <StatusBar hidden={true} />
             <TextUpper style={styles.shadow}>CALCULE SEU PACE</TextUpper>
             <InputContainerTime placeholder='distância'>
@@ -80,6 +88,9 @@ export default function Home({navigation}){
             <SwitchPageButton style={styles.shadow} onPress={() => navigation.navigate('Stories')}>
                 <MaterialIcons name='history' size={38} color='white' />
             </SwitchPageButton>
+            <TouchableOpacity onPress={() => setHelp(showHelp?false:true)} style={styles.helpContainer}>
+                <MaterialIcons name='help' size={40} color='white'/>
+            </TouchableOpacity>
         </Container>
     )
 }
@@ -89,5 +100,11 @@ export default function Home({navigation}){
 const styles = StyleSheet.create({
     shadow:{
         elevation: 7,
+    },
+    helpContainer:{
+        position:'absolute',
+        left: '5%',
+        bottom: '2.5%',
+        elevation: 10,
     }
 })
