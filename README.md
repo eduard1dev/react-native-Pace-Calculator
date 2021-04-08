@@ -10,3 +10,8 @@ Espera-se que esse projeto sirva como auxilio para outros corredores.
 - Redux
 - React Navigation
 
+# Screenshots:
+
+<div align='center'>
+    <img src='/demo/screenshots.png'>
+</div>
