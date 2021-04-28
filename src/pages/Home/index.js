@@ -1,10 +1,9 @@
-import { StatusBar } from 'expo-status-bar'
 import { MaterialIcons } from '@expo/vector-icons'
 
-import React , { useState } from 'react'
-import { Alert, Text, StyleSheet, Modal, View, TouchableOpacity} from 'react-native'
+import React , { useEffect, useState, useRef } from 'react'
+import { Alert, Text, StyleSheet, Modal, StatusBar, TouchableOpacity, Keyboard} from 'react-native'
 
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { save } from '../../store/pacesHist/pacesHist.actions'
 
 import { 
@@ -22,6 +21,7 @@ import {
 } from './styles'
 
 import Help from '../../components/Help'
+import colors from '../../constants/colors'
 
 export default function Home({navigation}){
     const [hora, setHora] = useState()
@@ -55,6 +55,7 @@ export default function Home({navigation}){
         if (!isNaN(dataPace.pace)){
             dispatch(save(dataPace))
             setKey(getKey)
+            Keyboard.dismiss()
             Alert.alert('Pronto!','Seu pace foi salvo.')
         }else{
             Alert.alert('Ops!','Digite todos os valores.')
@@ -64,21 +65,97 @@ export default function Home({navigation}){
     //estado do modal para mostrar a janela de Ajuda.
     const [showHelp, setHelp] = useState(false)
 
+    const [isFocused, setFocus] = useState({
+        hora: false,
+        min: false,
+        seg: false,
+        dist: false,
+    })
+
+    function handleFocus(inputFocused){
+        setFocus((oldstate) => {
+            switch (inputFocused) {
+                case 'hora':
+                    return {...oldstate, hora: true}
+                case 'min':
+                    return {...oldstate, min: true}
+                case 'seg':
+                    return {...oldstate, seg: true}
+                case 'dist':
+                    return {...oldstate, dist: true}
+                default:
+                    return null
+            }
+        })
+    }
+
+    function handleBlur(inputFocused){
+        setFocus((oldstate) => {
+            switch (inputFocused) {
+                case 'hora':
+                    return {...oldstate, hora: false}
+                case 'min':
+                    return {...oldstate, min: false}
+                case 'seg':
+                    return {...oldstate, seg: false}
+                case 'dist':
+                    return {...oldstate, dist: false}
+                default:
+                    return null
+            }
+        })
+    }
+
+
     return(
         <Container>
-            <Modal onRequestClose={() => setHelp(false)} visible={showHelp} transparent={true} animationType={'slide'}>
+            {console.log(isFocused)}
+            <Modal 
+                onRequestClose={() => setHelp(false)}
+                visible={showHelp} 
+                transparent={true} 
+                animationType={'slide'}
+            >
                 <Help/>  
             </Modal>
-            <StatusBar hidden={true} />
-            <TextUpper style={styles.shadow}>CALCULE SEU PACE</TextUpper>
+            <StatusBar hidden={false} backgroundColor={colors.secundary}/>
+            <TextUpper>CALCULE SEU PACE</TextUpper>
             <InputContainerTime placeholder='distância'>
-                <InputTime onChangeText={(value) => {setHora(parseFloat(value))} } placeholder='hora' keyboardType='numeric'/>
+                <InputTime 
+                    onChangeText={(value) => {setHora(parseFloat(value))} } 
+                    placeholder='hora' 
+                    keyboardType='numeric'
+                    onFocus={() => handleFocus('hora')}
+                    onBlur={() => handleBlur('hora')}
+                    isFocused={isFocused.hora}
+                />
                 <Text style={{color:'#FFF', fontSize:30}}>:</Text>
-                <InputTime onChangeText={(value) => setMin(parseFloat(value)) } placeholder='min' keyboardType='numeric'/>
+                <InputTime 
+                    onChangeText={(value) => setMin(parseFloat(value)) } 
+                    placeholder='min' 
+                    keyboardType='numeric'
+                    onFocus={() => handleFocus('min')}
+                    onBlur={() => handleBlur('min')}
+                    isFocused={isFocused.min}
+                />
                 <Text style={{color:'#FFF', fontSize:30}}>:</Text>
-                <InputTime onChangeText={(value) => setSeg(parseFloat(value)) } placeholder='seg' keyboardType='numeric'/>
+                <InputTime 
+                    onChangeText={(value) => setSeg(parseFloat(value)) } 
+                    placeholder='seg' 
+                    keyboardType='numeric'
+                    onFocus={() => handleFocus('seg')}
+                    onBlur={() => handleBlur('seg')}
+                    isFocused={isFocused.seg}
+                />
             </InputContainerTime>
-            <InputDist onChangeText={(value) => setDist(parseFloat(value))} placeholder='distância em metros' keyboardType='numeric'></InputDist>
+            <InputDist 
+                onChangeText={(value) => setDist(parseFloat(value))} 
+                placeholder='distância em metros' 
+                keyboardType='numeric'
+                onFocus={() => handleFocus('dist')}
+                onBlur={() => handleBlur('dist')}
+                isFocused={isFocused.dist}
+            />
             <PaceContainer style={styles.shadow}>
                 <TextPace>{isNaN(pace)?'...':pace}</TextPace><TextPaceLow>min/km</TextPaceLow>
             </PaceContainer>
@@ -88,7 +165,7 @@ export default function Home({navigation}){
             <SwitchPageButton style={styles.shadow} onPress={() => navigation.navigate('Stories')}>
                 <MaterialIcons name='history' size={38} color='white' />
             </SwitchPageButton>
-            <TouchableOpacity onPress={() => setHelp(showHelp?false:true)} style={styles.helpContainer}>
+            <TouchableOpacity onPress={() => setHelp(true)} style={styles.helpContainer} >
                 <MaterialIcons name='help' size={40} color='white'/>
             </TouchableOpacity>
         </Container>
@@ -98,13 +175,10 @@ export default function Home({navigation}){
 
 
 const styles = StyleSheet.create({
-    shadow:{
-        elevation: 7,
-    },
     helpContainer:{
         position:'absolute',
         left: '5%',
         bottom: '2.5%',
-        elevation: 10,
+        elevation: 5,
     }
 })

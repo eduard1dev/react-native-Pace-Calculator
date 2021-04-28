@@ -1,5 +1,5 @@
 import React , {useState, useEffect, useCallback} from 'react'
-import {Text, FlatList, StyleSheet} from 'react-native'
+import {FlatList} from 'react-native'
 
 import PaceStory from '../../components/paceStory'
 import LowerPaceContainer from '../../components/LowerPaceContainer'
@@ -20,31 +20,28 @@ import {
 
 export default function Stories({navigation}){
     const { paces } = useSelector(state => state.pacesHist)
+    
 
-    const [lowerPace, setLowerPace] = useState()
+    const [lowerPace, setLowerPace] = useState(Infinity)
 
-
-    function LowerPace(){
-        let lower = {pace: Infinity}
+    const LowerPace = useCallback(() => {
+        let lower = {pace: lowerPace}
         paces.forEach(element => {
             if(element.pace < lower.pace){
                 lower = element
             }
-        });
+        })
         setLowerPace(lower)
-    }   
+    })
+           
 
     useEffect(() => LowerPace(), [paces])
 
 
     return(
         <Container>
-            <TextUpper style={styles.shadow}>HISTÓRICO</TextUpper>
-            {
-                lowerPace && lowerPace.pace != Infinity
-                ?<LowerPaceContainer item={lowerPace}/>
-                :<Text style={{fontSize:25, color: '#FFF'}}>Salve algum pace!</Text>
-            }
+            <TextUpper>HISTÓRICO</TextUpper>
+            <LowerPaceContainer item={lowerPace}/>
             <PacesContainer> 
                 <FlatList
                     data={paces}
@@ -59,8 +56,3 @@ export default function Stories({navigation}){
     )
 }
 
-const styles = StyleSheet.create({
-    shadow:{
-        elevation: 7,
-    }
-})
