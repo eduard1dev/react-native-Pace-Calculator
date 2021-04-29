@@ -65,6 +65,7 @@ export default function Home({navigation}){
     //estado do modal para mostrar a janela de Ajuda.
     const [showHelp, setHelp] = useState(false)
 
+    // isFocused inputs
     const [isFocused, setFocus] = useState({
         hora: false,
         min: false,
@@ -109,7 +110,6 @@ export default function Home({navigation}){
 
     return(
         <Container>
-            {console.log(isFocused)}
             <Modal 
                 onRequestClose={() => setHelp(false)}
                 visible={showHelp} 
@@ -156,13 +156,13 @@ export default function Home({navigation}){
                 onBlur={() => handleBlur('dist')}
                 isFocused={isFocused.dist}
             />
-            <PaceContainer style={styles.shadow}>
+            <PaceContainer>
                 <TextPace>{isNaN(pace)?'...':pace}</TextPace><TextPaceLow>min/km</TextPaceLow>
             </PaceContainer>
-            <SaveButton style={styles.shadow} onPress={() => savePace()} >
+            <SaveButton onPress={() => savePace()} >
                 <TextSave>Salvar</TextSave>
             </SaveButton>
-            <SwitchPageButton style={styles.shadow} onPress={() => navigation.navigate('Stories')}>
+            <SwitchPageButton onPress={() => navigation.navigate('Stories')}>
                 <MaterialIcons name='history' size={38} color='white' />
             </SwitchPageButton>
             <TouchableOpacity onPress={() => setHelp(true)} style={styles.helpContainer} >

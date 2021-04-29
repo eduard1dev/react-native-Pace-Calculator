@@ -1,13 +1,15 @@
 import React from 'react'
-import {View, Text, Button, TouchableOpacity} from 'react-native'
+import {View, Animated, Text, Button, TouchableOpacity} from 'react-native'
 
 import { del } from '../store/pacesHist/pacesHist.actions'
 import { useDispatch } from 'react-redux'
 
-import { AntDesign } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 
 import styled from 'styled-components'
 import {colors, fonts} from '../constants'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import { Alert } from 'react-native'
 
 
 
@@ -21,7 +23,6 @@ const PaceContainer = styled.View`
     padding-right: 25px;
     padding-left: 25px;
     align-items: center;
-    margin-bottom: 2px;
 `
 const TextPace = styled.Text`
     color: ${colors.white};
@@ -38,6 +39,13 @@ const TextDate = styled(TextLower)`
     top: 5px;
     left: 25px;
 `
+const RemoveContainer = styled.View`
+    height: 70px;
+    width: 100%;
+    background-color: ${colors.red};
+    align-items: flex-end;
+    justify-content: center;
+`
 
 
 export default function paceStory({item}){
@@ -48,19 +56,34 @@ export default function paceStory({item}){
     }
 
     return (
-        <>
-            <PaceContainer>
-                <TextDate>{item.date}</TextDate>
-                <View style={{alignItems: 'flex-end'}}>
-                    <TextPace>{item.pace}</TextPace>
-                    <TextLower>min/km</TextLower>
-                </View>
-                <View style={{backgroundColor: colors.white, width: 2, height: 50, marginHorizontal: 8}} />
-                <TouchableOpacity onPress={() => delPace(item)} >
-                    <AntDesign name='delete' size={25} color={colors.white} />
-                </TouchableOpacity>
-            </PaceContainer>
-        </>
+        <Swipeable
+            overshootRight={false}
+            renderRightActions={(progress) => (
+            <RemoveContainer>
+                <Animated.View style={{
+                        transform: [{
+                            scale: progress
+                        }]
+                    }}
+                >
+                    <MaterialIcons 
+                        name='delete' 
+                        size={100} 
+                        color='white'
+                    /> 
+                </Animated.View>
+            </RemoveContainer>
+            )}
+            onSwipeableRightOpen={() => delPace(item)}
+        >
+                <PaceContainer>
+                    <TextDate>{item.date}</TextDate>
+                    <View style={{alignItems: 'flex-end'}}>
+                        <TextPace>{item.pace}</TextPace>
+                        <TextLower>min/km</TextLower>
+                    </View>
+                </PaceContainer>
+        </Swipeable>
     )
 }
 

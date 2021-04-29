@@ -1,22 +1,25 @@
 import React , {useState, useEffect, useCallback} from 'react'
-import {FlatList} from 'react-native'
+import {
+    FlatList,
+    View,
+} from 'react-native'
 
 import PaceStory from '../../components/paceStory'
 import LowerPaceContainer from '../../components/LowerPaceContainer'
 
-import { Ionicons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 
 import { useSelector } from 'react-redux'
 
 import { 
     Container,
+    Header,
     SwitchPageButton,
     PacesContainer,
     TextUpper, 
 } from './styles'
 
-
-
+import { colors } from '../../constants'
 
 export default function Stories({navigation}){
     const { paces } = useSelector(state => state.pacesHist)
@@ -40,18 +43,24 @@ export default function Stories({navigation}){
 
     return(
         <Container>
-            <TextUpper>HISTÓRICO</TextUpper>
+            <Header>
+                <SwitchPageButton onPress={() => navigation.navigate('Home')}>
+                    <AntDesign name='left' size={32} color={colors.white} />
+                </SwitchPageButton>
+                <TextUpper>HISTÓRICO</TextUpper>
+            </Header>
+            
             <LowerPaceContainer item={lowerPace}/>
-            <PacesContainer> 
+            <PacesContainer>
                 <FlatList
                     data={paces}
                     renderItem={({item}) => <PaceStory item={item}/>}
                     keyExtractor={(item) => item.key}
+                    ItemSeparatorComponent={() => (
+                        <View style={{backgroundColor: colors.secundaryL, width: '90%', height: 2, alignSelf:'center'}} />
+                    )}
                 />
             </PacesContainer>
-            <SwitchPageButton onPress={() => navigation.navigate('Home')}>
-                <Ionicons name='calculator' size={32} color='white' />
-            </SwitchPageButton>
         </Container>
     )
 }
