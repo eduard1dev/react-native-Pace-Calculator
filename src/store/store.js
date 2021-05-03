@@ -1,14 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createStore, combineReducers } from 'redux'
-import pacesHistReducer from './pacesHist/pacesHist.reducer'
 
 //Configurando redux-persist
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistStore, persistReducer } from 'redux-persist'
+
+import pacesHistReducer from './pacesHist/pacesHist.reducer'
 
 const persistConfig = {
     key: 'root',
-    storage: AsyncStorage,
-    whitelist: ['paces']
+    storage: AsyncStorage
 }
 
 const rootReducer = combineReducers({

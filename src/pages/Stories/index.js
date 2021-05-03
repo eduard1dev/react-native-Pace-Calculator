@@ -23,18 +23,23 @@ import { colors } from '../../constants'
 
 export default function Stories({navigation}){
     const { paces } = useSelector(state => state.pacesHist)
-    
 
     const [lowerPace, setLowerPace] = useState(Infinity)
 
     const LowerPace = useCallback(() => {
-        let lower = {pace: lowerPace}
-        paces.forEach(element => {
-            if(element.pace < lower.pace){
-                lower = element
-            }
-        })
-        setLowerPace(lower)
+        let lower = {
+            pace: lowerPace
+        }
+        if (paces.length > 0) {
+            paces.forEach(element => {
+                if(element.pace < lower.pace){
+                    lower = element
+                }
+            })
+            setLowerPace(lower)
+        }else{
+            setLowerPace(Infinity)
+        }
     })
            
 
@@ -49,7 +54,6 @@ export default function Stories({navigation}){
                 </SwitchPageButton>
                 <TextUpper>HISTÓRICO</TextUpper>
             </Header>
-            
             <LowerPaceContainer item={lowerPace}/>
             <PacesContainer>
                 <FlatList

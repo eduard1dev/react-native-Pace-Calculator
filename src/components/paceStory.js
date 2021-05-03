@@ -8,8 +8,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 
 import styled from 'styled-components'
 import {colors, fonts} from '../constants'
+
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-import { Alert } from 'react-native'
 
 
 
